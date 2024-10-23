@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for i in page_obj %}
+        <h1>{{ i.stanza_rn }}</h1>
+        <p>{{ i.stanza_tx|linebreaks }}</p>
+    {% endfor %}
+</body>
+</html>

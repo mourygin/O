@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% if page_obj.has_other_pages %}
+            {% for i in page_obj %}
+                {% if i.stanza_tx == '' %}
+                    <img src="{{ i.pic_file }}" width="{{ i.pic_h }}" height="{{ i.pic_v }}"/>
+                {% else %}
+                    <h3>{{ i.stanza_rn }}</h3>
+                    <p>{{ i.stanza_tx|linebreaks }}</p>
+                {% endif %}
+            {% endfor %}
+        <table>
+            <tr>
+                <td>
+                    {% if page_obj.has_previous %}
+                    <a href="?page=1&{{ efp }}=efp">
+                      <img src="{% static 'first.png' %}" width="30" height="30">
+                    </a>
+                    {% else %}
+                    <img src="{% static 'first_dis.png' %}" width="30" height="30">
+                    {% endif %}
+                </td>
+                <td>
+                    {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}&efp={{ efp }}">
+                      <img src="{% static 'prev.png' %}" width="30" height="30">
+                    </a>
+                    {% else %}
+                    <img src="{% static 'prev_dis.png' %}" width="30" height="30">
+                    {% endif %}
+                </td>
+                <td>
+                    <form action="?page={{ page }}&efp={{ efp }}">
+                        <input type="text" id="page" name="page" maxlength="3" value="{{ page_obj.number }}" size="1" >
+                    </form>
+                </td>
+                <td>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}&efp={{ efp }}">
+                          <img src="{% static 'next.png' %}" width="30" height="30">
+                        </a>
+                    {% else %}
+                        <img src="{% static 'next_dis.png' %}" width="30" height="30">
+                    {% endif %}
+                </td>
+                <td>
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.paginator.num_pages }}&efp={{ efp }}">
+                          <img src="{% static 'last.png' %}" width="30" height="30">
+                        </a>
+                    {% else %}
+                        <img src="{% static 'last_dis.png' %}" width="30" height="30">
+                    {% endif %}
+                </td>
+                <td>
+<!--                    <form>-->
+<!--                      <label for="efp">Elements for page:</label>-->
+<!--                      <select name="efp" id="city-select">-->
+<!--                        <option value="">Elements for page:</option>-->
+<!--                        <option value="2">2</option>-->
+<!--                        <option value="3">3</option>-->
+<!--                        <option value="4">4</option>-->
+<!--                        <option value="5">5</option>-->
+<!--                      </select>-->
+<!--                    </form>-->
+                    <form id="efp" action="?page=1&efp={{ efp }}">
+<!--                        <input type="submit"/>-->
+                        <label for="efp">Elements for page:</label>
+                        <select  type="submit" name="efp" size="1" form="efp">
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        <button type="submit">Set</button>
+                    </form>
+            </tr>
+        </table>
+    {% else %}
+        <p>No other pages</p>
+    {% endif %}
+
+</body>
+</html>
